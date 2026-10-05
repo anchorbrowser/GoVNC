@@ -28,6 +28,26 @@ input does with it is up to you.
 
 GoVNC was built at [Anchor Browser](https://anchorbrowser.io) to stream live browser sessions.
 
+## Why GoVNC
+
+Most VNC servers are programs tied to one OS's screen. Most Go VNC libraries are clients. GoVNC is
+a server you embed, and it does not care where the pixels come from.
+
+- **Runs on any OS.** No cgo and no OS APIs. Building with `CGO_ENABLED=0` gives one static binary
+  for Linux, macOS or Windows, on amd64 or arm64. It also runs in a `scratch` container.
+- **Agnostic to the source.** GoVNC never captures a screen. A headless browser, an emulator, a game
+  loop, a robot camera or a rendered dashboard all look the same to it: a frame in, input out.
+- **A library, not a daemon.** There is no separate VNC server to install, configure and supervise
+  next to your app. Your program is the VNC server, with your logging, your auth and your
+  lifecycle.
+- **Browser-ready without a proxy.** `ServeConn` speaks RFB over any stream. Serve noVNC straight
+  from your HTTP handler over a WebSocket, with no websockify.
+- **Fast with sources that already produce JPEG.** Chrome's screencast and many cameras already
+  produce JPEG. GoVNC sends those bytes straight to the viewer, so there is no decode and re-encode
+  per frame.
+- **Safe to expose to untrusted input.** Parsers are bounded, timeouts are enforced, and the default
+  security is documented plainly, so there is no false sense of safety.
+
 ## Features
 
 - **Zero dependencies.** Standard library only.
