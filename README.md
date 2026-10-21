@@ -135,6 +135,10 @@ go run ./examples/testpattern -addr 127.0.0.1:5900
 go run ./examples/testpattern -addr 127.0.0.1:5900 -password secret   # with VNC Authentication
 ```
 
+<p align="center">
+  <img src="docs/demo.gif" alt="The test pattern served by GoVNC and viewed in noVNC, with clicks and key presses logged by the server" width="800">
+</p>
+
 ## How it works
 
 ### Frames
