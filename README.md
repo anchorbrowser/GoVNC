@@ -135,6 +135,15 @@ go run ./examples/testpattern -addr 127.0.0.1:5900
 go run ./examples/testpattern -addr 127.0.0.1:5900 -password secret   # with VNC Authentication
 ```
 
+[`examples/stdio`](examples/stdio) turns any process into a VNC server: it publishes an MJPEG
+stream from stdin and writes viewer input to stdout as JSON lines. Below, a headless browser's
+screencast is piped through it, and the click and keys from the viewer come back out and land in
+the browser:
+
+<p align="center">
+  <img src="docs/demo.gif" alt="A web page streamed through GoVNC and viewed in noVNC; a click and typed keys reach the server and land in the page" width="800">
+</p>
+
 ## How it works
 
 ### Frames
