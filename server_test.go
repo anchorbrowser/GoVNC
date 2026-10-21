@@ -438,8 +438,11 @@ func TestExtendedClipboard(t *testing.T) {
 	eq(t, true, ok)
 	eq(t, "ünï ☃", text)
 
-	// noVNC's caps say 0 bytes unsolicited: notify, then the request gets provide.
+	// noVNC's caps say 0 bytes unsolicited: notify, then the request gets provide. The peek round
+	// trip makes sure the caps have been applied before the host sets the clipboard.
 	c.cutText([]byte{0x1f, 0, 0, 0x01, 0, 0, 0, 0}, true)
+	c.cutText(rfb.ExtendedAction(rfb.ClipPeek, 0), true)
+	eq(t, rfb.ClipNotify|rfb.ClipText, c.readExtended().Flags)
 	srv.SetClipboard("second")
 	eq(t, rfb.ClipNotify|rfb.ClipText, c.readExtended().Flags)
 	c.cutText(rfb.ExtendedAction(rfb.ClipRequest, rfb.ClipText), true)
